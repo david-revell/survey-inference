@@ -34,3 +34,13 @@ python scripts\analyze_stability.py --input results\resampling_runs.jsonl --outp
 ## Notes
 - This version uses LDA (no LLMs). It is fast and cheap to run.
 - A future extension can swap in local LLM labeling after topics are formed.
+
+## Roadmap (longer-term)
+1. Batching and sampling controls (cost vs stability trade-offs)
+2. Staged inference (coarse pass -> focused pass)
+3. Inference probes:
+   3.1 Bayesian interpretations vs token probabilities
+   3.2 Theory vs behaviour once models are deployed
+   3.3 Loss of nice properties at scale
+   3.4 Ongoing research directions
+4. Bayesian expectations vs deterministic outputs (are LLMs doing Bayesian reasoning, or just pattern-matching with probabilities?)
