@@ -1,0 +1,6 @@
+# Minimal dependencies
+pandas
+numpy
+scikit-learn
+openpyxl
+matplotlib
