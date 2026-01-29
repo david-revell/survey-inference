@@ -1,5 +1,8 @@
 # Survey Inference
 
+**Status:** In progress (active)  
+**Scope:** Statistical stability analysis only. No production deployment or automated decisioning.
+
 Short experiments to test *how stable* qualitative themes and labels are under resampling and different modelling choices.
 
 ## First study: theme stability under resampling
