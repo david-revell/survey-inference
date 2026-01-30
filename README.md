@@ -5,6 +5,15 @@
 
 Short experiments to test *how stable* qualitative themes and labels are under resampling and different modelling choices.
 
+## Table of contents
+- [First study: theme stability under resampling](#first-study-theme-stability-under-resampling)
+- [Scripts](#scripts)
+- [Quick start](#quick-start)
+- [How to interpret the stability output](#how-to-interpret-the-stability-output)
+- [Sample output (tiny)](#sample-output-tiny)
+- [Notes](#notes)
+- [Roadmap (longer-term)](#roadmap-longer-term)
+
 ## First study: theme stability under resampling
 **Goal:** quantify stability of topics on gym review data with repeated random subsamples.
 
