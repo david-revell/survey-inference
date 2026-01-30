@@ -6,13 +6,15 @@
 Short experiments to test *how stable* qualitative themes and labels are under resampling and different modelling choices.
 
 ## Table of contents
-- [First study: theme stability under resampling](#first-study-theme-stability-under-resampling)
-- [Scripts](#scripts)
-- [Quick start](#quick-start)
-- [How to interpret the stability output](#how-to-interpret-the-stability-output)
-- [Sample output (tiny)](#sample-output-tiny)
-- [Notes](#notes)
-- [Roadmap (longer-term)](#roadmap-longer-term)
+- [Survey Inference](#survey-inference)
+  - [Table of contents](#table-of-contents)
+  - [First study: theme stability under resampling](#first-study-theme-stability-under-resampling)
+  - [Scripts](#scripts)
+  - [Quick start](#quick-start)
+  - [How to interpret the stability output](#how-to-interpret-the-stability-output)
+  - [Sample output (tiny)](#sample-output-tiny)
+  - [Notes](#notes)
+  - [Roadmap (longer-term)](#roadmap-longer-term)
 
 ## First study: theme stability under resampling
 **Goal:** quantify stability of topics on gym review data with repeated random subsamples.
@@ -95,9 +97,9 @@ run_id,sample_size,avg_topic_jaccard,avg_prevalence_l1
 ## Roadmap (longer-term)
 1. Batching and sampling controls (cost vs stability trade-offs)
 2. Staged inference (coarse pass -> focused pass)
-3. Inference probes:
-   3.1 Bayesian interpretations vs token probabilities
-   3.2 Theory vs behaviour once models are deployed
-   3.3 Loss of nice properties at scale
+3. Inference probes:  
+   3.1 Bayesian interpretations vs token probabilities  
+   3.2 Theory vs behaviour once models are deployed  
+   3.3 Loss of nice properties at scale  
    3.4 Ongoing research directions
 4. Bayesian expectations vs deterministic outputs (are LLMs doing Bayesian reasoning, or just pattern-matching with probabilities?)
