@@ -10,7 +10,7 @@ Short experiments to test *how stable* qualitative themes and labels are under r
 
 **Data:**
 - `data/Google_12_months.xlsx` (uses column `Comment`)
-- `data/Trustpilot_12_months.xlsx` (uses `Review Title` + `Review Content`)
+- `data/Trustpilot_12_months.xlsx` (uses column `Review Content`; title excluded by default)
 
 ## Scripts
 - `scripts/run_resampling.py`  
