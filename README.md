@@ -48,6 +48,36 @@ python scripts\run_resampling.py --input data\Trustpilot_12_months.xlsx --text-c
 python scripts\analyze_stability.py --input results\resampling_runs.jsonl --output results\stability_summary.csv
 ```
 
+## How to interpret the stability output
+`scripts/analyze_stability.py` writes `results/stability_summary.csv`. The key ideas:
+- **Topic overlap (Jaccard):** higher means the same themes show up again when you resample.
+- **Prevalence drift (L1):** lower means the theme sizes stay similar across runs.
+
+Quick reading guide:
+- **High overlap + low drift** = stable themes.
+- **Low overlap + high drift** = unstable themes.
+- **Middle values** = try small adjustments and rerun.
+
+If results look unstable, try:
+- Fewer topics (`--n-topics`)
+- Larger sample (`--sample-frac`)
+- More runs (`--n-runs`)
+- Cleaner vocabulary (`--stopwords-file` or higher `--min-df`)
+
+## Sample output (tiny)
+Example single line from `results/resampling_runs.jsonl` (structure example only; values will vary):
+```json
+{"run_id": 0, "seed": 42, "sample_size": 4169, "n_topics": 6, "top_words": 10, "topic_words": [["og", "er", "und", "der", "die", "man", "det", "ich", "ist", "das"], ["gym", "great", "staff", "friendly", "best", "clean", "pure", "really", "helpful", "classes"], ["good", "gym", "equipment", "clean", "great", "nice", "place", "busy", "staff", "plenty"], ["class", "really", "good", "machines", "gym", "classes", "busy", "great", "music", "workout"], ["classes", "great", "gym", "love", "fitness", "class", "24", "friendly", "fantastic", "amazing"], ["gym", "people", "equipment", "just", "machines", "like", "staff", "time", "don", "use"]], "topic_prevalence": [0.07963540417366274, 0.1772607339889662, 0.22523386903334133, 0.09450707603741905, 0.13216598704725355, 0.2911969297193572], "text_col": "Comment", "title_col": null, "sample_frac": 0.3, "max_features": 2000, "min_df": 10, "stopwords_file": null}
+```
+
+Example `results/stability_summary.csv` from a quick POC run (values will vary by run):
+```csv
+run_id,sample_size,avg_topic_jaccard,avg_prevalence_l1
+0,4169,1.0,0.0
+1,4169,0.45730487835750994,0.07539777724474293
+2,4169,0.48455540560803717,0.07915567282321899
+```
+
 ## Notes
 - This version uses LDA (no LLMs). It is fast and cheap to run.
 - A future extension can swap in local LLM labeling after topics are formed.
