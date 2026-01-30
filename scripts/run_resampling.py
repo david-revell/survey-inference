@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 
 def _load_table(path: Path) -> pd.DataFrame:
@@ -61,6 +62,7 @@ def run_resampling(
     max_features: int,
     min_df: int,
     random_seed: int,
+    stopwords_file: Path | None,
     output_path: Path,
 ) -> None:
     df = _load_table(input_path)
@@ -70,13 +72,23 @@ def run_resampling(
     text = text.replace("nan", "").replace("None", "").str.strip()
     text = text[text.str.len() > 0]
 
+    stop_words = None
+    if stopwords_file is not None:
+        raw = stopwords_file.read_text(encoding="utf-8").splitlines()
+        extra = [
+            w.strip().lower()
+            for w in raw
+            if w.strip() and not w.strip().startswith("#")
+        ]
+        stop_words = sorted(set(ENGLISH_STOP_WORDS).union(extra))
+
     rows = []
     for i in range(n_runs):
         seed = random_seed + i
         sample = text.sample(frac=sample_frac, random_state=seed)
 
         vectorizer = CountVectorizer(
-            stop_words="english",
+            stop_words=stop_words or "english",
             max_features=max_features,
             min_df=min_df,
         )
@@ -114,6 +126,7 @@ def run_resampling(
                 "sample_frac": sample_frac,
                 "max_features": max_features,
                 "min_df": min_df,
+                "stopwords_file": str(stopwords_file) if stopwords_file else None,
             }
         )
 
@@ -135,6 +148,11 @@ if __name__ == "__main__":
     parser.add_argument("--max-features", type=int, default=5000)
     parser.add_argument("--min-df", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--stopwords-file",
+        default=None,
+        help="Optional path to newline-delimited stopwords (merged with English stopwords).",
+    )
     parser.add_argument("--output", default="results/resampling_runs.jsonl")
     args = parser.parse_args()
 
@@ -149,5 +167,6 @@ if __name__ == "__main__":
         max_features=args.max_features,
         min_df=args.min_df,
         random_seed=args.seed,
+        stopwords_file=Path(args.stopwords_file) if args.stopwords_file else None,
         output_path=Path(args.output),
     )

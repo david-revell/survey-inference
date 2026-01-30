@@ -1,0 +1,20 @@
+# Neutral terms to filter out when they overwhelm topic quality.
+# One term per line. Lines starting with # are ignored.
+gym
+gyms
+equipment
+machines
+machine
+people
+staff
+membership
+member
+members
+place
+places
+club
+clubs
+time
+times
+day
+days

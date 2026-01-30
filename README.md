@@ -25,15 +25,21 @@ python scripts\run_resampling.py --input data\Google_12_months.xlsx --text-col "
 python scripts\analyze_stability.py --input results\resampling_runs.jsonl --output results\stability_summary.csv
 ```
 
+Optional: add a custom neutral-terms stopword list (merged with English stopwords):
+```powershell
+python scripts\run_resampling.py --input data\Google_12_months.xlsx --text-col "Comment" --sample-frac 0.7 --n-runs 10 --n-topics 10 --stopwords-file config\neutral_terms.txt
+```
+
 Trustpilot example:
 ```powershell
-python scripts\run_resampling.py --input data\Trustpilot_12_months.xlsx --text-col "Review Content" --title-col "Review Title" --sample-frac 0.7 --n-runs 10 --n-topics 10
+python scripts\run_resampling.py --input data\Trustpilot_12_months.xlsx --text-col "Review Content" --sample-frac 0.7 --n-runs 10 --n-topics 10
 python scripts\analyze_stability.py --input results\resampling_runs.jsonl --output results\stability_summary.csv
 ```
 
 ## Notes
 - This version uses LDA (no LLMs). It is fast and cheap to run.
 - A future extension can swap in local LLM labeling after topics are formed.
+- For Trustpilot, we exclude the title field by default to avoid overweighting short, high-salience text and to keep preprocessing consistent across datasets. A future sensitivity check can append titles and compare stability.
 
 ## Roadmap (longer-term)
 1. Batching and sampling controls (cost vs stability trade-offs)
