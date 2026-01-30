@@ -30,6 +30,18 @@ Optional: add a custom neutral-terms stopword list (merged with English stopword
 python scripts\run_resampling.py --input data\Google_12_months.xlsx --text-col "Comment" --sample-frac 0.7 --n-runs 10 --n-topics 10 --stopwords-file config\neutral_terms.txt
 ```
 
+Quick POC run (fast sanity check):
+```powershell
+python scripts\run_resampling.py --input data\Google_12_months.xlsx --text-col "Comment" --sample-frac 0.3 --n-runs 3 --n-topics 6 --max-features 2000 --min-df 10
+```
+
+Runtime knobs (lower = faster):
+- `--n-runs` (fewer repeated samples)
+- `--sample-frac` (smaller fraction of rows per run)
+- `--n-topics` (fewer themes to find)
+- `--max-features` (smaller vocabulary)
+- `--min-df` (higher threshold drops more rare words)
+
 Trustpilot example:
 ```powershell
 python scripts\run_resampling.py --input data\Trustpilot_12_months.xlsx --text-col "Review Content" --sample-frac 0.7 --n-runs 10 --n-topics 10
